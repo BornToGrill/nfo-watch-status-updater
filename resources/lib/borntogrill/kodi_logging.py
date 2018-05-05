@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
+
 from resources.lib.borntogrill.kodi_utils import get_setting_as_bool
 
-from __future__ import unicode_literals
 import logging
 
 import xbmc # pylint: disable=import-error
