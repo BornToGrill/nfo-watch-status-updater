@@ -1,13 +1,15 @@
-from resources.lib import kodiutils
-from resources.lib.borntogrill.kodi_xbmc_utils import VideoLibrary
+# -*- coding: utf-8 -*-
+
+from resources.lib.borntogrill import kodi_utils
+from resources.lib.borntogrill.kodi_json_rpc import VideoLibrary
 from resources.lib.borntogrill.kodi_nfo_updater import update_nfo
 
 import logging
-import xbmc # pylint: disable=import-error
-import xbmcaddon # pylint: disable=import-error
 import os
 import json
 
+import xbmc # pylint: disable=import-error
+import xbmcaddon # pylint: disable=import-error
 
 ADDON = xbmcaddon.Addon()
 ADDON_VERSION = ADDON.getAddonInfo('version')
@@ -113,11 +115,11 @@ class KodiNotificationHandler():
         except IOError:
             error_message = 'Failed to update NFO. File could not be found.'
             logger.exception(error_message)
-            kodiutils.notification(ADDON_NAME, error_message)
+            kodi_utils.notification(ADDON_NAME, error_message)
         except:
             error_message = 'Failed to update NFO. Check logs for more information'
             logger.exception(error_message)
-            kodiutils.notification(ADDON_NAME, error_message)
+            kodi_utils.notification(ADDON_NAME, error_message)
 
 def run():
     monitor = KodiMonitor()

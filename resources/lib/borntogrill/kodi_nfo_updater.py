@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
-import re
 from xml.dom import minidom
 from xml.dom.minidom import Node
 from xml.etree import ElementTree
 from contextlib import closing
+import re
+
 import xbmcvfs # pylint: disable=import-error
 
 ENCODING = 'UTF-8'

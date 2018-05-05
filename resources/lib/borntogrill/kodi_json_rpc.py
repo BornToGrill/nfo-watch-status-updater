@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import xbmc # pylint: disable=import-error
-import json
-from resources.lib.kodiutils import kodi_json_request
+from resources.lib.borntogrill.kodi_utils import kodi_json_request
 
+import json
+
+import xbmc # pylint: disable=import-error
 
 def construct_request(method, params):
     return {
@@ -13,25 +14,27 @@ def construct_request(method, params):
         'params': params
     }
 
+def send_request(method, params):
+    message = construct_request(method, params)
+    return kodi_json_request(message)
+
 
 class VideoLibrary():
 
     @staticmethod
     def get_movie_details(id):
-        message = construct_request('VideoLibrary.GetMovieDetails', {
+        return send_request('VideoLibrary.GetMovieDetails', {
             'movieid': id,
             'properties': [
                 'file'
             ]
         })
-        return kodi_json_request(message)
     
     @staticmethod
     def get_episode_details(id):
-        message = construct_request('VideoLibrary.GetEpisodeDetails', {
+        return send_request('VideoLibrary.GetEpisodeDetails', {
             'episodeid': id,
             'properties': [
                 'file'
             ]
         })
-        return kodi_json_request(message)
