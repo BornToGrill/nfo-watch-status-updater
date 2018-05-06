@@ -51,7 +51,7 @@ class KodiNotificationHandler():
         video_info = self._video_info_from_notification(obj)
         if video_info is None:
             logger.warn('Could not parse video info from update notification')
-            pass # TODO: Add 'warn' log
+            return
         
         fetch_strategies = {
             u'movie': {
@@ -64,16 +64,21 @@ class KodiNotificationHandler():
             }
         }
         
-        # TODO: Add error handling to lines below
-        strategy = fetch_strategies[video_info.type]
-        video_details = strategy['fetch'](video_info.id)
-        video_file_path = strategy['file_path'](video_details)
+        try:
+            strategy = fetch_strategies[video_info.type]
+            video_details = strategy['fetch'](video_info.id)
+            video_file_path = strategy['file_path'](video_details)
+            
+            nfo_file_path = video_file_path.replace(os.path.splitext(video_file_path)[1], '.nfo')
+        except:
+            error_message = 'Failed to get video info'
+            logger.exception(error_message)
+            kodi_utils.notification(ADDON_NAME, error_message)
         
-        nfo_file_path = video_file_path.replace(os.path.splitext(video_file_path)[1], '.nfo')
         try:
             update_nfo(nfo_file_path, video_info.playcount)
         except IOError:
-            error_message = 'Failed to update NFO. File could not be found.'
+            error_message = 'Failed to update NFO. File could not be found'
             logger.exception(error_message)
             kodi_utils.notification(ADDON_NAME, error_message)
         except:
