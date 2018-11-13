@@ -26,7 +26,10 @@ class KodiNotificationHandler():
     
     def __init__(self, monitor):
         self.monitor = monitor
-        self.monitor.on(MonitorMethod.VIDEO_LIBRARY_ON_UPDATE, self.on_video_library_update)
+        self.monitor.on(
+			MonitorMethod.VIDEO_LIBRARY_ON_UPDATE, 
+			self.on_video_library_update
+		)
     
     def run_till_abort(self, wait_time):
         self.monitor.run_till_abort(wait_time)
