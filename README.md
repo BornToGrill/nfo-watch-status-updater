@@ -1,4 +1,4 @@
-# Welcome to your addon
+# NFO Watch status updater addon
 
  Improvements over NFO Watch Status Updater
 
